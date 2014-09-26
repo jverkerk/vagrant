@@ -1,0 +1,68 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrant RabbitMQ Project
+
+# Adjustable settings
+CFG_MEMSIZE = "3000"      # max memory for each VM
+CFG_TZ = "US/Eastern"     # timezone, like US/Pacific, US/Eastern, UTC, Europe/Warsaw, etc.
+CFG_IP = "10.100.100.10"   # private IP address
+
+# Provisioning script
+node_script = <<SCRIPT
+#!/bin/bash
+
+# update to latest packages but not update kernel
+yum update -y --exclude=kernel*,redhat-release*
+
+# add epel
+cd /tmp
+wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+rpm -ivh epel-release-6-8.noarch.rpm
+
+# install some basic packages
+yum install vim curl zip unzip python-pip -y
+
+# install Oracle Java
+#rpm -Uvh /vagrant/jdk-7u67-linux-x64.rpm
+
+# install erlang
+yum install erlang -y
+
+# install rabbitMQ
+cd /tmp
+rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.5/rabbitmq-server-3.3.5-1.noarch.rpm
+yum install rabbitmq-server-3.3.5-1.noarch.rpm -y
+
+#enable admin ui on port 15672
+rabbitmq-plugins enable rabbitmq_management
+
+#start rabbitmq
+service rabbitmq-server start
+
+#create admin user (change password!!)
+rabbitmqctl add_user admin admin
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+
+SCRIPT
+
+# Configure VM server
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.define :rabbitmq do |x|
+    x.vm.box = "chef/centos-6.5"
+    x.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"]  = CFG_MEMSIZE
+    end
+    x.vm.provider :virtualbox do |v|
+      v.name = "rabbitmq"
+      v.customize ["modifyvm", :id, "--memory", CFG_MEMSIZE]
+    end
+    x.vm.network :private_network, ip: CFG_IP
+    x.vm.hostname = "rabbitmq"
+    x.vm.provision :shell, :inline => node_script
+  end
+end

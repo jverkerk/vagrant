@@ -2,4 +2,4 @@ base:
   '*':
     - common
     - elasticsearch
-    = kibana
+    - kibana

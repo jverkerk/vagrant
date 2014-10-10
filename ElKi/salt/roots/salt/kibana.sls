@@ -15,6 +15,6 @@ kibana:
 
 start_kibana:
   cmd.run:
-    - name : {{ kibanadir }}/bin/kibana > /dev/null 2>&1
+    - name: {{ kibanadir }}/bin/kibana > /dev/null 2>&1 &
   require:
-    - cmd.run kibana
+    - cmd.run: kibana

@@ -2,8 +2,9 @@ Vagrant.configure("2") do |config|
   ## Choose base box
   config.vm.box = "chef/centos-6.5"
  
-  ## Open up port 80 as localhost:8080 
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  ## Open up port 5601 as localhost:8080 
+  config.vm.network "forwarded_port", guest: 5601, host: 8080
+#  config.vm.network "forwarded_port", guest: 9200, host: 8088
 
   ## Set hostname
   config.vm.hostname = "ElKi-latest"

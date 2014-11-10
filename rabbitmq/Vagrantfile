@@ -4,7 +4,7 @@
 # Vagrant RabbitMQ Project
 
 # Adjustable settings
-CFG_MEMSIZE = "3000"      # max memory for each VM
+CFG_MEMSIZE = "2048"      # max memory for each VM
 CFG_TZ = "US/Eastern"     # timezone, like US/Pacific, US/Eastern, UTC, Europe/Warsaw, etc.
 CFG_IP = "10.100.100.10"   # private IP address
 
@@ -24,7 +24,10 @@ rpm -ivh epel-release-6-8.noarch.rpm
 yum install vim curl zip unzip python-pip -y
 
 # install Oracle Java
-#rpm -Uvh /vagrant/jdk-7u67-linux-x64.rpm
+cd /tmp
+wget -c --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm" --output-document="jdk-7u71-linux-x64.rpm"
+rpm -Uvh jdk-7u71-linux-x64.rpm
+#alternatives --install /usr/bin/java java /usr/java/default/bin/java 20000
 
 # install erlang
 yum install erlang -y

@@ -62,14 +62,14 @@ Vagrant.configure('2') do |config|
   nodes.each do |node|
 
     config.vm.provider :vcenter do |vcenter|
-      vcenter.hostname = 'vcenter55.lab.netuitive.com'
-      vcenter.username = 'lab\jeroen.verkerk'
-      vcenter.password = 'CarrotDog2012'
+      vcenter.hostname = 'vcenter server name'
+      vcenter.username = 'username'
+      vcenter.password = 'password'
       vcenter.folder_name = 'VagrantTest'
       vcenter.datacenter_name = 'QA'
-      vcenter.computer_name = 'qavsphere02.lab.netuitive.com'
-      vcenter.datastore_name = 'qavsphere02-ds1'
-      vcenter.network_name = 'VM Network'
+      vcenter.computer_name = 'cluster or vsphere machine name'
+      vcenter.datastore_name = 'datastore name'
+      vcenter.network_name = 'network name'
       vcenter.linked_clones = true
       vcenter.disable_auto_vm_name = true 
     end

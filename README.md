@@ -8,4 +8,5 @@ vagrant folders for different projects;
   * kibana-4.0.0-BETA1.tar.gz
 * Cassandra
 * RabbitMQ
+* vCenter - Create vagrant machines on vcenter
   

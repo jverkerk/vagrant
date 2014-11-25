@@ -7,6 +7,6 @@ vagrant folders for different projects;
   * jdk-1.7.0.67.rpm
   * kibana-4.0.0-BETA1.tar.gz
 * Cassandra
+* Postgres - Vagrant + salt 
 * RabbitMQ
-* vCenter - Create vagrant machines on vcenter
   

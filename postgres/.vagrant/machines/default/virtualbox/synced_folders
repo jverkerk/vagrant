@@ -1,0 +1,1 @@
+{"virtualbox":{"/srv":{"guestpath":"/srv","hostpath":"/Users/jverkerk/vagrant/postgres/salt/roots","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/jverkerk/vagrant/postgres","disabled":false}}}
